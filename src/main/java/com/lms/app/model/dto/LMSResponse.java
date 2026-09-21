@@ -1,8 +1,11 @@
 package com.lms.app.model.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class LMSResponse <T>{
     private T data;
-    private long totalCounts = 0;
+    private Long totalCounts = null;
 
     public T getData() {
         return data;
@@ -13,7 +16,7 @@ public class LMSResponse <T>{
         return this;
     }
 
-    public long getTotalCounts() {
+    public Long getTotalCounts() {
         return totalCounts;
     }
 

@@ -1,5 +1,6 @@
-package com.lms.app.resource;
+package com.lms.app.api;
 
+import com.lms.app.config.properties.BlobProperties;
 import com.lms.app.model.dto.LMSResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,12 @@ import java.util.List;
 @RestController()
 @RequestMapping("/v1/welcome")
 public class HelloResource {
+
+    private final BlobProperties blobProperties;
+
+    public HelloResource(BlobProperties blobProperties) {
+        this.blobProperties = blobProperties;
+    }
 
     @GetMapping
     public ResponseEntity<LMSResponse<List<String>>> welcome() {

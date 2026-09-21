@@ -1,7 +1,8 @@
 package com.lms.app.config;
 
 
-import jakarta.servlet.FilterChain;
+import com.lms.app.config.properties.BlobProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -11,6 +12,7 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
+@EnableConfigurationProperties(BlobProperties.class)
 public class ApplicationConfiguration {
 
     @Bean
