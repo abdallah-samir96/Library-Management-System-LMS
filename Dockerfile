@@ -21,6 +21,7 @@ WORKDIR /app
 COPY --from=builder /build/target/*.jar app.jar
 
 ENV APP_BLOBS_STORAGE_PATH=/app/blobs
+ENV LMS_DB_HOST=lms_db
 
 EXPOSE 8080
 

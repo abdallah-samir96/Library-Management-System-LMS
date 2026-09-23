@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="
+            http://www.liquibase.org/xml/ns/dbchangelog
+            https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="CREATE_BOOK_001" author="abdallahsameer22@gmail.com" runOnChange="false" failOnError="true">
+        <sqlFile path="sql/book_001.sql" relativeToChangelogFile="true"  splitStatements="true" />
+    </changeSet>
+
+</databaseChangeLog>
