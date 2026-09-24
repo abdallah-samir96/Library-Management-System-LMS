@@ -8,7 +8,7 @@
             https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
 
     <changeSet id="CREATE_BOOK_001" author="abdallahsameer22@gmail.com" runOnChange="false" failOnError="true">
-        <sqlFile path="sql/book_001.sql" relativeToChangelogFile="true"  splitStatements="true" />
+        <sqlFile path="sql/blob_001.sql" relativeToChangelogFile="true" splitStatements="true" />
     </changeSet>
 
 </databaseChangeLog>

@@ -1,4 +1,4 @@
-package com.lms.app.model.dto;
+package com.lms.app.model.dto.responses;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
