@@ -6,6 +6,9 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 public class LMSResponse <T>{
     private T data;
     private Long totalCounts = null;
+    private int page;
+    private int pageSize;
+
 
     public T getData() {
         return data;
@@ -23,6 +26,22 @@ public class LMSResponse <T>{
     public LMSResponse <T> setTotalCounts(long totalCounts) {
         this.totalCounts = totalCounts;
         return this;
+    }
+    public LMSResponse<T> setPage(int page) {
+        this.page = page;
+        return this;
+    }
+    public LMSResponse<T> setPageSize(int pageSize) {
+        this.pageSize = pageSize;
+        return this;
+    }
+
+    public int getPage() {
+        return page;
+    }
+
+    public int getPageSize() {
+        return pageSize;
     }
 
     public LMSResponse<T> build() {
