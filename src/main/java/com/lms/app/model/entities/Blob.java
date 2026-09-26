@@ -28,6 +28,9 @@ public class Blob extends BaseEntity {
     @Column(name = "path", nullable = false, unique = true)
     private String path;
 
+    @Column(name = "thumbnail_path", length = 1000)
+    private String thumbnailPath;
+
     public Long getId() {
         return id;
     }
@@ -82,5 +85,13 @@ public class Blob extends BaseEntity {
 
     public void setPath(String path) {
         this.path = path;
+    }
+
+    public String getThumbnailPath() {
+        return thumbnailPath;
+    }
+
+    public void setThumbnailPath(String thumbnailPath) {
+        this.thumbnailPath = thumbnailPath;
     }
 }

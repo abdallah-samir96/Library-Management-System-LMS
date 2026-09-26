@@ -6,6 +6,7 @@ CREATE TABLE blob(
     content_type VARCHAR(255) NOT NULL,
     size_in_bytes bigint not null default 0,
     path varchar(1000) not null unique,
+    thumbnail_path varchar(1000),
 
     created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
