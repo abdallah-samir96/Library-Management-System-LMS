@@ -9,6 +9,9 @@ import com.lms.app.repository.BlobRepository;
 import com.lms.app.repository.BookRepository;
 import com.lms.app.service.BookService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDateTime;
 
 @Service
 public class BookServiceImpl implements BookService {
@@ -38,5 +41,18 @@ public class BookServiceImpl implements BookService {
         book.setCategory(request.category());
         book.setBlob(blob);
         bookRepository.save(book);
+    }
+
+    @Transactional
+    @Override
+    public void delete(long bookId) {
+        var book = bookRepository
+                .findByIdAndDeletedAtIsNull(bookId)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Book does not exist"));
+
+        var now = LocalDateTime.now();
+        book.setDeletedAt(now);
+        book.getBlob().setDeletedAt(now);
     }
 }

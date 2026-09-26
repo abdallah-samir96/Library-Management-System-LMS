@@ -31,6 +31,9 @@ public abstract class BaseEntity {
     @Column(name = "updated_by")
     private String updatedBy;
 
+    @Column(name = "deleted_at")
+    private LocalDateTime deletedAt;
+
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
@@ -61,5 +64,13 @@ public abstract class BaseEntity {
 
     public void setUpdatedBy(String updatedBy) {
         this.updatedBy = updatedBy;
+    }
+
+    public LocalDateTime getDeletedAt() {
+        return deletedAt;
+    }
+
+    public void setDeletedAt(LocalDateTime deletedAt) {
+        this.deletedAt = deletedAt;
     }
 }
