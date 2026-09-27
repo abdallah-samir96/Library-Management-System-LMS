@@ -4,6 +4,7 @@ import com.lms.app.model.constants.AppConstants;
 import com.lms.app.model.dto.commons.SortDirection;
 import com.lms.app.model.dto.requests.CreateBookRequest;
 import com.lms.app.model.dto.requests.ListBookResponse;
+import com.lms.app.model.dto.requests.UpdateBookRequest;
 import com.lms.app.model.dto.responses.LMSResponse;
 import com.lms.app.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,5 +52,20 @@ public class BookController {
     ) {
         var response = bookService.getAll(page, size, search, SortDirection.getDirection(direction));
         return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<LMSResponse<ListBookResponse>> getBookDetails(@PathVariable("id") long id) {
+        var data = bookService.getBookDetails(id);
+        var lmsResponse = new LMSResponse<ListBookResponse>()
+                .setData(data)
+                .build();
+        return ResponseEntity.status(HttpStatus.OK).body(lmsResponse);
+    }
+
+    @PutMapping()
+    public ResponseEntity<Void> updateBook(@RequestBody UpdateBookRequest request) {
+        bookService.update(request);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 }

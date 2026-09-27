@@ -21,6 +21,7 @@ public class BookMapper implements Mapper<Book, ListBookResponse>{
         bookResponse.setCategory(entity.getCategory().name());
         bookResponse.setFilePath(entity.getBlob().getPath());
         bookResponse.setThumbnailPath(entity.getBlob().getThumbnailPath());
+        bookResponse.setBlobId(entity.getBlob().getId());
         BaseMapper.mapToDTO(entity, bookResponse);
         return bookResponse;
     }

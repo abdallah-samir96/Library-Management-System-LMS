@@ -14,6 +14,7 @@ public class ListBookResponse extends BaseEntityResponse {
     private String category;
     private String filePath;
     private String thumbnailPath;
+    private Long blobId;
 
     public ListBookResponse() {
     }
@@ -101,5 +102,13 @@ public class ListBookResponse extends BaseEntityResponse {
 
     public void setThumbnailPath(String thumbnailPath) {
         this.thumbnailPath = thumbnailPath;
+    }
+
+    public Long getBlobId() {
+        return blobId;
+    }
+
+    public void setBlobId(Long blobId) {
+        this.blobId = blobId;
     }
 }

@@ -1,10 +1,12 @@
 package com.lms.app.service.impl;
 
 import com.lms.app.exception.BlobAlreadyAssignedException;
-import com.lms.app.exception.ResourceNotFoundException;
+import com.lms.app.exception.BlobNotFoundException;
+import com.lms.app.exception.BookNotFoundException;
 import com.lms.app.model.dto.commons.SortDirection;
 import com.lms.app.model.dto.requests.CreateBookRequest;
 import com.lms.app.model.dto.requests.ListBookResponse;
+import com.lms.app.model.dto.requests.UpdateBookRequest;
 import com.lms.app.model.dto.responses.LMSResponse;
 import com.lms.app.model.entities.Blob;
 import com.lms.app.model.entities.Book;
@@ -15,7 +17,6 @@ import com.lms.app.repository.specifications.BookSpecification;
 import com.lms.app.service.BookService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,9 +39,9 @@ public class BookServiceImpl implements BookService {
      * */
     @Override
     public void create(CreateBookRequest request) {
-        Blob blob = blobRepository.findById(request.blobId()).orElseThrow(() -> new ResourceNotFoundException("Blob not found: " + request.blobId()));
+        Blob blob = blobRepository.findById(request.blobId()).orElseThrow(() -> new BlobNotFoundException("Blob not found ", "Blob with id: " + request.blobId() + " is not found"));
         if (bookRepository.existsByBlobId(request.blobId())) {
-            throw new BlobAlreadyAssignedException("Blob is already assigned to another book: " + request.blobId());
+            throw new BlobAlreadyAssignedException("Blob is already assigned to another book", "Blob with Id " + request.blobId() + " is assigned before");
         }
         Book book = new Book();
         book.setTitle(request.title());
@@ -59,7 +60,7 @@ public class BookServiceImpl implements BookService {
         var book = bookRepository
                 .findByIdAndDeletedAtIsNull(bookId)
                 .orElseThrow(() ->
-                        new ResourceNotFoundException("Book does not exist"));
+                        new BookNotFoundException("Book does not exist or deleted", "book with id " + bookId + " is not found!!"));
 
         var now = LocalDateTime.now();
         book.setDeletedAt(now);
@@ -79,5 +80,29 @@ public class BookServiceImpl implements BookService {
                 .setPageSize(size)
                 .setTotalCounts(pageableResponse.getTotalElements())
                 .build();
+    }
+
+    @Override
+    public ListBookResponse getBookDetails(long id) {
+        var book = findAndGetBook(id);
+        return new BookMapper().toDTO(book);
+    }
+
+    @Override
+    @Transactional
+    public void update(UpdateBookRequest request) {
+        var book = findAndGetBook(request.id());
+        book.setTitle(request.title());
+        book.setAuthor(request.author());
+        book.setIsbn(request.isbn());
+        book.setVersion(request.version());
+        book.setDescription(request.description());
+        book.setCategory(request.category());
+    }
+
+    Book findAndGetBook(long id) {
+        return bookRepository
+                .findByIdAndDeletedAtIsNull(id)
+                .orElseThrow(()-> new BookNotFoundException("book is not found", "Book with Id " + id + " is not found or deleted before !!" ));
     }
 }

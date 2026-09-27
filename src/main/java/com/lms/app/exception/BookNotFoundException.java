@@ -2,14 +2,14 @@ package com.lms.app.exception;
 
 import com.lms.app.model.dto.commons.ErrorCodes;
 
-public class BlobAlreadyAssignedException extends RuntimeException {
+public class BookNotFoundException extends RuntimeException {
 
     private final String details;
     private final String code;
-    public BlobAlreadyAssignedException(String message, String details) {
+    public BookNotFoundException(String message, String details) {
         super(message);
         this.details = details;
-        this.code = ErrorCodes.BLOB_ASSIGNED;
+        this.code = ErrorCodes.BOOK_NOT_FOUND;
     }
 
     public String getDetails() {
